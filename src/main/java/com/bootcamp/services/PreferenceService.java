@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Created by darextossa on 11/27/17.
+ * Created by Hilaire .
  */
 @Component
 public class PreferenceService implements DatabaseConstants {
@@ -41,7 +41,7 @@ public class PreferenceService implements DatabaseConstants {
     }
     public List<Preference> readAll(int id) throws SQLException {
         Criterias criterias = new Criterias();
-        criterias.addCriteria(new Criteria("usersId", "=", id));
+        criterias.addCriteria(new Criteria("userId", "=", id));
         List<Preference> preferences = PreferenceCRUD.read(criterias);
         return preferences;
     }

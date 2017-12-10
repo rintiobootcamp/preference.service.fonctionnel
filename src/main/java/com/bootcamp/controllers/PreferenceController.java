@@ -56,7 +56,7 @@ public class PreferenceController {
         return new ResponseEntity<>(id, httpStatus);
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/{usersId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{userId}")
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Read a preference", notes = "Read a preference")
     public ResponseEntity<List<PreferenceWS>> readAllPreferences(@PathVariable(name = "usersId") int id) {
@@ -67,7 +67,7 @@ public class PreferenceController {
             List<Preference> preferences = preferenceService.readAll(id);
             for (Preference current_preference : preferences) {
                 preferenceWS.setEntityId(current_preference.getEntityId());
-                preferenceWS.setEntityType(current_preference.getEntityTypes());
+                preferenceWS.setEntityType(current_preference.getEntityType());
                 preferenceWS.setDateCreation(current_preference.getDateCreation());
                 preferencesWS.add(preferenceWS);
             }
