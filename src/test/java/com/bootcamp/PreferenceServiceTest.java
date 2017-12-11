@@ -1,11 +1,9 @@
-package com.bootcamp.servcice;
+package com.bootcamp;
 
 import com.bootcamp.application.Application;
 import com.bootcamp.commons.utils.GsonUtils;
 import com.bootcamp.crud.PreferenceCRUD;
 import com.bootcamp.entities.Preference;
-import com.bootcamp.entities.Projet;
-import com.bootcamp.entities.Secteur;
 import com.bootcamp.services.PreferenceService;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
@@ -19,8 +17,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -48,16 +44,6 @@ public class PreferenceServiceTest {
     @InjectMocks
     private PreferenceService preferenceService;
 
-    @Test
-    public void getAllPreference() throws Exception {
-        List<Preference> preferences = loadDataPreferenceFromJsonFile();
-        PowerMockito.mockStatic(PreferenceCRUD.class);
-        HttpServletRequest mockRequest = Mockito.mock(HttpServletRequest.class);
-        Mockito.
-                when(PreferenceCRUD.read()).thenReturn(preferences);
-        List<Preference> resultPreferences = preferenceService.readAll(1);
-        Assert.assertEquals(preferences.size(), resultPreferences.size());
-    }
 
     @Test
     public void create() throws Exception{
@@ -113,4 +99,16 @@ public class PreferenceServiceTest {
 
         return preferences;
     }
+    
+        @Test
+    public void getAllPreference() throws Exception {
+        List<Preference> preferences = loadDataPreferenceFromJsonFile();
+        PowerMockito.mockStatic(PreferenceCRUD.class);
+        HttpServletRequest mockRequest = Mockito.mock(HttpServletRequest.class);
+        Mockito.
+                when(PreferenceCRUD.read()).thenReturn(preferences);
+        List<Preference> resultPreferences = preferenceService.readAll(1);
+        Assert.assertEquals(resultPreferences.size(), 3);
+    }
+
 }
