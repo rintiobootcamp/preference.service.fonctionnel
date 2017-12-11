@@ -6,6 +6,7 @@
 package com.bootcamp.controllers;
 
 import com.bootcamp.commons.ws.usecases.pivotone.PreferenceWS;
+import com.bootcamp.crud.PreferenceCRUD;
 import com.bootcamp.entities.Preference;
 import com.bootcamp.services.PreferenceService;
 import com.bootcamp.version.ApiVersions;
@@ -37,10 +38,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "Preference API", description = "Preference API")
 @CrossOrigin(origins = "*")
 public class PreferenceController {
+
     @Autowired
     PreferenceService preferenceService;
     @Autowired
     HttpServletRequest request;
+
     @RequestMapping(method = RequestMethod.POST)
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Create a new Preference", notes = "Create a new Preference")
@@ -55,14 +58,14 @@ public class PreferenceController {
         }
         return new ResponseEntity<>(id, httpStatus);
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, value = "/{userId}")
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Read a preference", notes = "Read a preference")
-    public ResponseEntity<List<PreferenceWS>> readAllPreferences(@PathVariable(name = "usersId") int id) {
+    public ResponseEntity<List<PreferenceWS>> readAllPreferences(@PathVariable(name = "userId") int id) {
         List<PreferenceWS> preferencesWS = new ArrayList<>();
         PreferenceWS preferenceWS = new PreferenceWS();
-        HttpStatus httpStatus ;
+        HttpStatus httpStatus;
         try {
             List<Preference> preferences = preferenceService.readAll(id);
             for (Preference current_preference : preferences) {
@@ -77,5 +80,36 @@ public class PreferenceController {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(preferencesWS, httpStatus);
-    }  
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "delete/{idPreference}")
+    @ApiVersions({"1.0"})
+    @ApiOperation(value = "Delete a preference", notes = "Delete a preference")
+    public ResponseEntity<PreferenceWS> delete(@PathVariable(name = "idPreference") int id) {
+        HttpStatus httpStatus;
+        try { 
+            Preference preference = preferenceService.read(id);
+            PreferenceCRUD.delete(preference);
+            httpStatus = HttpStatus.OK;
+        } catch (SQLException ex) {
+            Logger.getLogger(PreferenceController.class.getName()).log(Level.SEVERE, null, ex);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(httpStatus);
+    }
+    
+     @RequestMapping(method = RequestMethod.PUT, value = "update/{idPreference}")
+    @ApiVersions({"1.0"})
+    @ApiOperation(value = "Update a preference", notes = "Update a preference")
+    public ResponseEntity<PreferenceWS> update(@RequestBody @Valid Preference preference) {
+        HttpStatus httpStatus;
+        try { 
+            PreferenceCRUD.update(preference);
+            httpStatus = HttpStatus.OK;
+        } catch (SQLException ex) {
+            Logger.getLogger(PreferenceController.class.getName()).log(Level.SEVERE, null, ex);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(httpStatus);
+    }
 }

@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "entityType": "AXE",
+        "entityId": 1,
+        "userId": 1,
+        "dateCreation": "1511890840",
+        "dateMiseAJour": "1511890840"
+    },
+    {
+        "id": 2,
+        "entityType": "PROJET",
+        "entityId": 2,
+        "userId": 1,
+        "dateCreation": "1511890840",
+        "dateMiseAJour": "1511890840"
+    },
+    {
+        "id": 3,
+        "entityType": "PILIER",
+        "entityId": 3,
+        "userId": 2,
+        "dateCreation": "1511890840",
+        "dateMiseAJour": "1511890840"
+    },
+    {
+        "id": 4,
+        "entityType": "SECTEUR",
+        "entityId": 6,
+        "userId": 5,
+        "dateCreation": "1511890840",
+        "dateMiseAJour": "1511890840"
+    },
+    {
+        "id": 5,
+        "entityType": "SONDAGE",
+        "entityId": 6,
+        "userId": 5,
+        "dateCreation": "1511890840",
+        "dateMiseAJour": "1511890840"
+    },
+    {
+        "id": 6,
+        "entityType": "LIKE",
+        "entityId": 7,
+        "userId": 5,
+        "dateCreation": "1511890840",
+        "dateMiseAJour": "1511890840"
+    },
+    {
+        "id": 7,
+        "entityType": "DEBAT",
+        "entityId": 1,
+        "userId": 1,
+        "dateCreation": "1511890840",
+        "dateMiseAJour": "1511890840"
+    }
+]
