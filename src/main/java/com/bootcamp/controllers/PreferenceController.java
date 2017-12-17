@@ -106,7 +106,8 @@ public class PreferenceController {
         HttpStatus httpStatus;
         try { 
             Preference preference = preferenceService.read(id);
-            PreferenceCRUD.delete(preference);
+            preferenceService.delete(id);
+           // PreferenceCRUD.delete(preference);
             httpStatus = HttpStatus.OK;
         } catch (SQLException ex) {
             Logger.getLogger(PreferenceController.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,8 +126,8 @@ public class PreferenceController {
     @ApiOperation(value = "Update a preference", notes = "Update a preference")
     public ResponseEntity<PreferenceWS> update(@RequestBody @Valid Preference preference) {
         HttpStatus httpStatus;
-        try { 
-            PreferenceCRUD.update(preference);
+        try {
+            preferenceService.update(preference);
             httpStatus = HttpStatus.OK;
         } catch (SQLException ex) {
             Logger.getLogger(PreferenceController.class.getName()).log(Level.SEVERE, null, ex);

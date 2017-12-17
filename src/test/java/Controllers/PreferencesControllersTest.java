@@ -5,6 +5,8 @@ import com.bootcamp.commons.enums.EntityType;
 import com.bootcamp.commons.utils.GsonUtils;
 import com.bootcamp.controllers.PreferenceController;
 import com.bootcamp.controllers.PreferenceController;
+import com.bootcamp.crud.PreferenceCRUD;
+import com.bootcamp.entities.LikeTable;
 import com.bootcamp.entities.Preference;
 import com.bootcamp.services.PreferenceService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,11 +30,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.util.List;
 
@@ -70,32 +75,35 @@ public class PreferencesControllersTest {
         System.out.println("*********************************Test for create preference controller done *******************");
     }
 
-/*
-    @Test
-    public void getAllPreferenceToJson() throws Exception {
-        Preference preference = new Preference();
-        preference.setId(1);
-
-        List<Preference> allProjets = Arrays.asList(preference);
-
-        given(projetService.findAll()).willReturn(allProjets);
-
-        mvc.perform(get("/projets")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$",hasSize(1)))
-                .andExpect(jsonPath("$[0].nom",is(projet.getNom())));
-    }
-  */
     @Test
     public void deletePreference() throws Exception {
-        int id = 5;
+        int id = 1;
         when(preferenceService.exist(id)).thenReturn(true);
         when(preferenceService.delete(id)).thenReturn(true);
-
         RequestBuilder requestBuilder
                 = delete("/preferences/delete/{idPreference}", id)
                 .contentType(MediaType.APPLICATION_JSON);
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = result.getResponse();
+        System.out.println(response.getContentAsString());
+        mockMvc.perform(requestBuilder).andExpect(status().isOk());
+        System.out.println("*********************************Test for delete preference  controller done *******************");
+    }
+
+    @Test
+    public void updateDebat() throws Exception {
+        int id=1;
+        List<Preference> preferences = getPreferenceFromJson();
+        Preference preference = preferences.get(id);
+        preference.setEntityId(10);
+
+        when(preferenceService.exist(preference.getId())).thenReturn(true);
+        when(preferenceService.update(preference)).thenReturn(preference.getId());
+
+        RequestBuilder requestBuilder
+                = put("/update/{idPreference}")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectToJson(preference));
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
@@ -104,13 +112,10 @@ public class PreferencesControllersTest {
         System.out.println(response.getContentAsString());
 
         mockMvc.perform(requestBuilder).andExpect(status().isOk());
-        System.out.println("*********************************Test for delete debat in debat controller done *******************");
+        System.out.println("*********************************Test for update preference controller done *******************");
 
     }
 
-
-    
-    
     private static String objectToJson(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
