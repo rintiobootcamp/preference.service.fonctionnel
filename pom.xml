@@ -13,17 +13,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <config.home>/home/config/dev</config.home>
+        <config.home2>C:\Users\Archange\Documents\Script\bootcamp.scripts\bootcamp.scripts-release_1.3.0\config\local</config.home2>
     </properties>
 
     <dependencies>
-       
-        <dependency>
-            <groupId>com.bootcamp</groupId>
-            <artifactId>commons</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
+<dependency>
             <groupId>com.bootcamp</groupId>
             <artifactId>commons.ws</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -33,8 +27,13 @@
                     <artifactId>commons</artifactId>
                 </exclusion>
             </exclusions>
+            <type>jar</type>
         </dependency>
-
+        <dependency>
+            <groupId>com.bootcamp</groupId>
+            <artifactId>commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.bootcamp</groupId>
             <artifactId>service.crud</artifactId>
@@ -102,13 +101,13 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.6.2</version>
+            <version>2.7</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.6.2</version>
+            <version>2.7</version>
         </dependency>
 
         <dependency>
@@ -164,15 +163,15 @@
             <artifactId>db-access</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        
-        
-        
-        
-        
-        
-        
-        
-          <dependency>
+
+
+
+
+
+
+
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -199,9 +198,16 @@
             <version>1.7.3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <version>1.5.8.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
 
-        
+
     </dependencies>
+
 
     <profiles>
         <!-- en local -->
@@ -218,7 +224,7 @@
                         <filtering>true</filtering>
                     </resource>
                     <resource>
-                        <directory>${config.home}</directory>
+                        <directory>${config.home2}</directory>
                     </resource>
 
                 </resources>
@@ -268,9 +274,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>

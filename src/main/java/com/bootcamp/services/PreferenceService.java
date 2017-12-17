@@ -41,6 +41,7 @@ public class PreferenceService implements DatabaseConstants {
         return preference.getId();
     }
 
+
     /**
      * Delete a preference in the database by its id
      *
@@ -48,10 +49,9 @@ public class PreferenceService implements DatabaseConstants {
      * @return preference
      * @throws SQLException
      */
-    public Preference delete(int id) throws SQLException {
+        public boolean delete(int id) throws SQLException {
         Preference preference = read(id);
-        PreferenceCRUD.delete(preference);
-        return preference;
+        return PreferenceCRUD.delete(preference);
     }
 
     /**
@@ -88,4 +88,20 @@ public class PreferenceService implements DatabaseConstants {
 //        return preferences.get(0);
 //    }
 
+
+    public boolean exist(Preference  preference) throws Exception{
+        if(read(preference.getId())!=null)
+            return true;
+        return false;
+    }
+
+    public boolean exist(int id) throws Exception{
+        if(read(id)!=null){
+            return true;
+        }else{
+            return false;
+        }
+
+
+    }
 }

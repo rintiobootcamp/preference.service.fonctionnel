@@ -5,6 +5,7 @@
  */
 package com.bootcamp.controllers;
 
+
 import com.bootcamp.commons.ws.usecases.pivotone.PreferenceWS;
 import com.bootcamp.crud.PreferenceCRUD;
 import com.bootcamp.entities.Preference;
