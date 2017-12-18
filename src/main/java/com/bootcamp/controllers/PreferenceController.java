@@ -5,6 +5,7 @@
  */
 package com.bootcamp.controllers;
 
+
 import com.bootcamp.commons.ws.usecases.pivotone.PreferenceWS;
 import com.bootcamp.crud.PreferenceCRUD;
 import com.bootcamp.entities.Preference;
@@ -44,6 +45,12 @@ public class PreferenceController {
     @Autowired
     HttpServletRequest request;
 
+    /**
+     * Insert the given preference in the database
+     *
+     * @param preference
+     * @return preference
+     */
     @RequestMapping(method = RequestMethod.POST)
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Create a new Preference", notes = "Create a new Preference")
@@ -59,9 +66,14 @@ public class PreferenceController {
         return new ResponseEntity<>(id, httpStatus);
     }
 
+    /**
+     * Get all the preferences of a user
+     * @param id
+     * @return preferences list
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/{userId}")
     @ApiVersions({"1.0"})
-    @ApiOperation(value = "Read a preference", notes = "Read a preference")
+    @ApiOperation(value = "Read all the preferences of a user", notes = "Read all the preferences of a user")
     public ResponseEntity<List<PreferenceWS>> readAllPreferences(@PathVariable(name = "userId") int id) {
         List<PreferenceWS> preferencesWS = new ArrayList<>();
         PreferenceWS preferenceWS = new PreferenceWS();
@@ -82,6 +94,11 @@ public class PreferenceController {
         return new ResponseEntity<>(preferencesWS, httpStatus);
     }
 
+    /**
+     * Delete a preference by its id
+     * @param id
+     * @return preferenceWS
+     */
     @RequestMapping(method = RequestMethod.DELETE, value = "delete/{idPreference}")
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Delete a preference", notes = "Delete a preference")
@@ -89,7 +106,8 @@ public class PreferenceController {
         HttpStatus httpStatus;
         try { 
             Preference preference = preferenceService.read(id);
-            PreferenceCRUD.delete(preference);
+            preferenceService.delete(id);
+           // PreferenceCRUD.delete(preference);
             httpStatus = HttpStatus.OK;
         } catch (SQLException ex) {
             Logger.getLogger(PreferenceController.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,13 +116,18 @@ public class PreferenceController {
         return new ResponseEntity<>(httpStatus);
     }
     
-     @RequestMapping(method = RequestMethod.PUT, value = "update/{idPreference}")
+    /**
+     * Update a preference by its id
+     * @param preference
+     * @return preferenceWS
+     */
+    @RequestMapping(method = RequestMethod.PUT, value = "update/{idPreference}")
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Update a preference", notes = "Update a preference")
     public ResponseEntity<PreferenceWS> update(@RequestBody @Valid Preference preference) {
         HttpStatus httpStatus;
-        try { 
-            PreferenceCRUD.update(preference);
+        try {
+            preferenceService.update(preference);
             httpStatus = HttpStatus.OK;
         } catch (SQLException ex) {
             Logger.getLogger(PreferenceController.class.getName()).log(Level.SEVERE, null, ex);
