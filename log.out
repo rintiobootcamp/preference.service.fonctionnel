@@ -1,5 +1,5 @@
 [INFO] Scanning for projects...
-[INFO]                                                                         
+[INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] Building PreferenceRestServices 1.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
@@ -8,32 +8,34 @@
 [INFO] 
 [INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ PreferenceRestServices ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory /home/soul/bootcamp/Review Release_1.3.0/clone/preference.service.fonctionnel/src/main/resources
-[INFO] Copying 22 resources
+[INFO] skip non existing resourceDirectory /Bootcamp/Clone/preference.service.fonctionnel/src/main/resources
+[INFO] Copying 21 resources
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.3:compile (default-compile) @ PreferenceRestServices ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 8 source files to /home/soul/bootcamp/Review Release_1.3.0/clone/preference.service.fonctionnel/target/classes
+[INFO] Nothing to compile - all classes are up to date
 [INFO] 
 [INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ PreferenceRestServices ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Copying 1 resource
 [INFO] 
 [INFO] --- maven-compiler-plugin:3.3:testCompile (default-testCompile) @ PreferenceRestServices ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 2 source files to /home/soul/bootcamp/Review Release_1.3.0/clone/preference.service.fonctionnel/target/test-classes
+[INFO] Nothing to compile - all classes are up to date
 [INFO] 
 [INFO] <<< spring-boot-maven-plugin:1.5.3.RELEASE:run (default-cli) < test-compile @ PreferenceRestServices <<<
 [INFO] 
+[INFO] 
 [INFO] --- spring-boot-maven-plugin:1.5.3.RELEASE:run (default-cli) @ PreferenceRestServices ---
+2017-12-19 13:31:58,570 main ERROR appenders contains an invalid element or attribute "Sentry"
+2017-12-19 13:31:58,600 main ERROR Unable to locate appender "Sentry" for logger config "org.springframework"
+2017-12-19 13:31:58,603 main ERROR Unable to locate appender "Sentry" for logger config "com.bootcamp"
 SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/home/soul/.m2/repository/org/slf4j/slf4j-log4j12/1.7.12/slf4j-log4j12-1.7.12.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/home/soul/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.7/log4j-slf4j-impl-2.7.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/root/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.7/log4j-slf4j-impl-2.7.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/root/.m2/repository/org/slf4j/slf4j-log4j12/1.7.12/slf4j-log4j12-1.7.12.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
-log4j:WARN No appenders could be found for logger (org.springframework.web.context.support.StandardServletEnvironment).
-log4j:WARN Please initialize the log4j system properly.
-log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+2017-12-19 13:32:00,055 main ERROR appenders contains an invalid element or attribute "Sentry"
+2017-12-19 13:32:00,066 main ERROR Unable to locate appender "Sentry" for logger config "org.springframework"
+2017-12-19 13:32:00,073 main ERROR Unable to locate appender "Sentry" for logger config "com.bootcamp"
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -43,5 +45,38 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::        (v1.5.8.RELEASE)
 
-[32m2017-12-18 23:54:55.322 WAT [background-preinit] o.h.v.i.u.Version INFO : HV000001: Hibernate Validator 5.3.5.Final
-[m
+2017-12-19 13:32:02.580 WAT [background-preinit] o.h.v.i.u.Version INFO : HV000001: Hibernate Validator 5.3.5.Final
+2017-12-19 13:32:11.659 WAT [main] o.a.c.c.StandardService INFO : Starting service [Tomcat]
+2017-12-19 13:32:11.676 WAT [main] o.a.c.c.StandardEngine INFO : Starting Servlet Engine: Apache Tomcat/8.5.23
+2017-12-19 13:32:12.280 WAT [localhost-startStop-1] o.a.c.c.C.[.[.[/preference] INFO : Initializing Spring embedded WebApplicationContext
+2017-12-19 13:32:25.485 WAT [main] s.d.s.w.p.DocumentationPluginsBootstrapper INFO : Context refreshed
+2017-12-19 13:32:25.624 WAT [main] s.d.s.w.p.DocumentationPluginsBootstrapper INFO : Found 1 custom documentation plugin(s)
+2017-12-19 13:32:25.666 WAT [main] s.d.s.w.s.ApiListingReferenceScanner INFO : Scanning for api listing references
+2017-12-19 13:32:27.075 WAT [main] o.a.c.h.Http11NioProtocol INFO : Initializing ProtocolHandler ["http-nio-8090"]
+2017-12-19 13:32:27.113 WAT [main] o.a.c.h.Http11NioProtocol INFO : Starting ProtocolHandler ["http-nio-8090"]
+2017-12-19 13:32:27.148 WAT [main] o.a.t.u.n.NioSelectorPool INFO : Using a shared selector for servlet write/read
+2017-12-19 13:32:41.423 WAT [http-nio-8090-exec-2] o.a.c.c.C.[.[.[/preference] INFO : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-12-19 13:32:41.833 WAT [http-nio-8090-exec-2] o.t.TemplateEngine INFO : [THYMELEAF] INITIALIZING TEMPLATE ENGINE
+2017-12-19 13:32:42.057 WAT [http-nio-8090-exec-2] o.t.t.AbstractTemplateResolver INFO : [THYMELEAF] INITIALIZING TEMPLATE RESOLVER: org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
+2017-12-19 13:32:42.058 WAT [http-nio-8090-exec-2] o.t.t.AbstractTemplateResolver INFO : [THYMELEAF] TEMPLATE RESOLVER INITIALIZED OK
+2017-12-19 13:32:42.059 WAT [http-nio-8090-exec-2] o.t.m.AbstractMessageResolver INFO : [THYMELEAF] INITIALIZING MESSAGE RESOLVER: org.thymeleaf.spring4.messageresolver.SpringMessageResolver
+2017-12-19 13:32:42.065 WAT [http-nio-8090-exec-2] o.t.m.AbstractMessageResolver INFO : [THYMELEAF] MESSAGE RESOLVER INITIALIZED OK
+2017-12-19 13:32:42.077 WAT [http-nio-8090-exec-2] o.t.T.CONFIG INFO : [THYMELEAF] TEMPLATE ENGINE CONFIGURATION:
+[THYMELEAF] * Cache Factory implementation: org.thymeleaf.cache.StandardCacheManager
+[THYMELEAF] * Template modes:
+[THYMELEAF]     * HTML5
+[THYMELEAF]     * XML
+[THYMELEAF]     * VALIDXHTML
+[THYMELEAF]     * VALIDXML
+[THYMELEAF]     * XHTML
+[THYMELEAF]     * LEGACYHTML5
+[THYMELEAF] * Template resolvers (in order):
+[THYMELEAF]     * org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
+[THYMELEAF] * Message resolvers (in order):
+[THYMELEAF]     * org.thymeleaf.spring4.messageresolver.SpringMessageResolver
+[THYMELEAF] * Dialect: org.thymeleaf.spring4.dialect.SpringStandardDialect
+[THYMELEAF]     * Prefix: "th"
+[THYMELEAF] TEMPLATE ENGINE CONFIGURED OK
+2017-12-19 13:32:42.078 WAT [http-nio-8090-exec-2] o.t.TemplateEngine INFO : [THYMELEAF] TEMPLATE ENGINE INITIALIZED
+[EL Info]: 2017-12-19 13:34:23.374--ServerSession(1626267525)--EclipseLink, version: Eclipse Persistence Services - 2.5.2.v20140319-9ad6abd
+[EL Info]: connection: 2017-12-19 13:34:24.932--ServerSession(1626267525)--file:/Bootcamp/Clone/preference.service.fonctionnel/target/classes/_databasePU login successful
