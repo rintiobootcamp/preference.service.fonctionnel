@@ -60,7 +60,7 @@ public class PreferencesControllersTest {
         Preference preference = preferences.get(0);
 
         when(preferenceService.read(0)).thenReturn(preference);
-        when(preferenceService.create(preference)).thenReturn(preference.getId());
+        when(preferenceService.create(preference)).thenReturn(preference);
         RequestBuilder requestBuilder
                 = post("/preferences")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ public class PreferencesControllersTest {
         preference.setEntityId(10);
 
         when(preferenceService.exist(preference.getId())).thenReturn(true);
-        when(preferenceService.update(preference)).thenReturn(preference.getId());
+        when(preferenceService.update(preference)).thenReturn(preference);
 
         RequestBuilder requestBuilder
                 = put("/update/{idPreference}")

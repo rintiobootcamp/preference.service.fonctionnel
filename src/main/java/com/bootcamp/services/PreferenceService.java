@@ -23,10 +23,10 @@ public class PreferenceService implements DatabaseConstants {
      * @return preference
      * @throws SQLException
      */
-    public int create(Preference preference) throws SQLException {
+    public Preference create(Preference preference) throws SQLException {
         preference.setDateCreation(System.currentTimeMillis());
         PreferenceCRUD.create(preference);
-        return preference.getId();
+        return preference;
     }
 
     /**
@@ -36,9 +36,9 @@ public class PreferenceService implements DatabaseConstants {
      * @return preference id
      * @throws SQLException
      */
-    public int update(Preference preference) throws SQLException {
+    public Preference update(Preference preference) throws SQLException {
         PreferenceCRUD.update(preference);
-        return preference.getId();
+        return preference;
     }
 
 
