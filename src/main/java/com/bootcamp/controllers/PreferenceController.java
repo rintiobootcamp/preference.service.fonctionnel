@@ -6,6 +6,7 @@
 package com.bootcamp.controllers;
 
 
+import com.bootcamp.commons.enums.EntityType;
 import com.bootcamp.commons.ws.usecases.pivotone.PreferenceWS;
 import com.bootcamp.crud.PreferenceCRUD;
 import com.bootcamp.entities.Preference;
@@ -54,16 +55,9 @@ public class PreferenceController {
     @RequestMapping(method = RequestMethod.POST)
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Create a new Preference", notes = "Create a new Preference")
-    public ResponseEntity<Integer> create(@RequestBody @Valid Preference preference) {
-        HttpStatus httpStatus = null;
-        int id = -1;
-        try {
-            id = preferenceService.create(preference);
-            httpStatus = HttpStatus.OK;
-        } catch (SQLException ex) {
-            Logger.getLogger(PreferenceController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return new ResponseEntity<>(id, httpStatus);
+    public ResponseEntity<Preference> create(@RequestBody @Valid Preference preference) throws Exception{
+      Preference result = preferenceService.create( preference );
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     /**
@@ -74,7 +68,7 @@ public class PreferenceController {
     @RequestMapping(method = RequestMethod.GET, value = "/{userId}")
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Read all the preferences of a user", notes = "Read all the preferences of a user")
-    public ResponseEntity<List<PreferenceWS>> readAllPreferences(@PathVariable(name = "userId") int id) {
+    public ResponseEntity<List<PreferenceWS>> readUserPreferences(@PathVariable(name = "userId") int id) {
         List<PreferenceWS> preferencesWS = new ArrayList<>();
         PreferenceWS preferenceWS = new PreferenceWS();
         HttpStatus httpStatus;
@@ -82,7 +76,7 @@ public class PreferenceController {
             List<Preference> preferences = preferenceService.readAll(id);
             for (Preference current_preference : preferences) {
                 preferenceWS.setEntityId(current_preference.getEntityId());
-                preferenceWS.setEntityType(current_preference.getEntityType());
+                preferenceWS.setEntityType( EntityType.valueOf( current_preference.getEntityType()));
                 preferenceWS.setDateCreation(current_preference.getDateCreation());
                 preferencesWS.add(preferenceWS);
             }
@@ -99,21 +93,12 @@ public class PreferenceController {
      * @param id
      * @return preferenceWS
      */
-    @RequestMapping(method = RequestMethod.DELETE, value = "delete/{idPreference}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{idPreference}")
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Delete a preference", notes = "Delete a preference")
-    public ResponseEntity<PreferenceWS> delete(@PathVariable(name = "idPreference") int id) {
-        HttpStatus httpStatus;
-        try { 
-            Preference preference = preferenceService.read(id);
-            preferenceService.delete(id);
-           // PreferenceCRUD.delete(preference);
-            httpStatus = HttpStatus.OK;
-        } catch (SQLException ex) {
-            Logger.getLogger(PreferenceController.class.getName()).log(Level.SEVERE, null, ex);
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return new ResponseEntity<>(httpStatus);
+    public ResponseEntity<Boolean> delete(@PathVariable(name = "idPreference") int id) throws Exception{
+            boolean done = preferenceService.delete( id );
+        return new ResponseEntity<>(done,HttpStatus.OK);
     }
     
     /**
@@ -121,18 +106,11 @@ public class PreferenceController {
      * @param preference
      * @return preferenceWS
      */
-    @RequestMapping(method = RequestMethod.PUT, value = "update/{idPreference}")
+    @RequestMapping(method = RequestMethod.PUT)
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Update a preference", notes = "Update a preference")
-    public ResponseEntity<PreferenceWS> update(@RequestBody @Valid Preference preference) {
-        HttpStatus httpStatus;
-        try {
-            preferenceService.update(preference);
-            httpStatus = HttpStatus.OK;
-        } catch (SQLException ex) {
-            Logger.getLogger(PreferenceController.class.getName()).log(Level.SEVERE, null, ex);
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return new ResponseEntity<>(httpStatus);
+    public ResponseEntity<Preference> update(@RequestBody @Valid Preference preference) throws Exception{
+       Preference result = preferenceService.update( preference );
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }
