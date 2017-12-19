@@ -2,6 +2,7 @@
 .gradle
 CathegoriesRestServices.iml
 target
+log.out
 /src/main/resources/local/
 logs/
 PreferenceRestServices.iml
