@@ -76,7 +76,7 @@ public class PreferenceController {
             List<Preference> preferences = preferenceService.readAll(id);
             for (Preference current_preference : preferences) {
                 preferenceWS.setEntityId(current_preference.getEntityId());
-                preferenceWS.setEntityType( EntityType.valueOf( current_preference.getEntityType()));
+                preferenceWS.setEntityType( String.valueOf( current_preference.getEntityType()));
                 preferenceWS.setDateCreation(current_preference.getDateCreation());
                 preferencesWS.add(preferenceWS);
             }
