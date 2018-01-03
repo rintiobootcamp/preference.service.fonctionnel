@@ -68,24 +68,19 @@ public class PreferenceController {
     @RequestMapping(method = RequestMethod.GET, value = "/{userId}")
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Read all the preferences of a user", notes = "Read all the preferences of a user")
-    public ResponseEntity<List<PreferenceWS>> readUserPreferences(@PathVariable(name = "userId") int id) {
+    public ResponseEntity<List<Preference>> readUserPreferences(@PathVariable(name = "userId") int id) {
         List<PreferenceWS> preferencesWS = new ArrayList<>();
+         List<Preference> preferences = null ;
         PreferenceWS preferenceWS = new PreferenceWS();
         HttpStatus httpStatus;
         try {
-            List<Preference> preferences = preferenceService.readAll(id);
-            for (Preference current_preference : preferences) {
-                preferenceWS.setEntityId(current_preference.getEntityId());
-                preferenceWS.setEntityType( String.valueOf( current_preference.getEntityType()));
-                preferenceWS.setDateCreation(current_preference.getDateCreation());
-                preferencesWS.add(preferenceWS);
-            }
+              preferences = preferenceService.readAll(id);
             httpStatus = HttpStatus.OK;
         } catch (SQLException ex) {
             Logger.getLogger(PreferenceController.class.getName()).log(Level.SEVERE, null, ex);
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<>(preferencesWS, httpStatus);
+        return new ResponseEntity<>(preferences, httpStatus);
     }
 
     /**

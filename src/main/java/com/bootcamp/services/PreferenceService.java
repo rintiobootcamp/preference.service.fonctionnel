@@ -37,10 +37,15 @@ public class PreferenceService implements DatabaseConstants {
      * @throws SQLException
      */
     public Preference update(Preference preference) throws SQLException {
+        int id = preference.getId();
+        Criterias criterias = new Criterias();
+        criterias.addCriteria(new Criteria("id", "=", id));
+        Preference current_preferences = PreferenceCRUD.read(criterias).get(0);
+        preference.setDateCreation(current_preferences.getDateCreation());
+        preference.setDateMiseAJour(System.currentTimeMillis());
         PreferenceCRUD.update(preference);
         return preference;
     }
-
 
     /**
      * Delete a preference in the database by its id
@@ -49,7 +54,7 @@ public class PreferenceService implements DatabaseConstants {
      * @return preference
      * @throws SQLException
      */
-        public boolean delete(int id) throws SQLException {
+    public boolean delete(int id) throws SQLException {
         Preference preference = read(id);
         return PreferenceCRUD.delete(preference);
     }
@@ -71,13 +76,13 @@ public class PreferenceService implements DatabaseConstants {
     /**
      * Get all the preferences of a given user
      *
-     * @param id
+     * @param userId
      * @return preferences list
      * @throws SQLException
      */
-    public List<Preference> readAll(int id) throws SQLException {
+    public List<Preference> readAll(int userId) throws SQLException {
         Criterias criterias = new Criterias();
-        criterias.addCriteria(new Criteria("userId", "=", id));
+        criterias.addCriteria(new Criteria("userId", "=", userId));
         List<Preference> preferences = PreferenceCRUD.read(criterias);
         return preferences;
     }
@@ -88,20 +93,12 @@ public class PreferenceService implements DatabaseConstants {
 //        return preferences.get(0);
 //    }
 
-
-    public boolean exist(Preference  preference) throws Exception{
-        if(read(preference.getId())!=null)
-            return true;
-        return false;
+    public boolean exist(Preference preference) throws Exception {
+        return read(preference.getId()) != null;
     }
 
-    public boolean exist(int id) throws Exception{
-        if(read(id)!=null){
-            return true;
-        }else{
-            return false;
-        }
-
+    public boolean exist(int id) throws Exception {
+        return read(id) != null;
 
     }
 }
