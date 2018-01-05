@@ -37,11 +37,6 @@ public class PreferenceService implements DatabaseConstants {
      * @throws SQLException
      */
     public Preference update(Preference preference) throws SQLException {
-        int id = preference.getId();
-        Criterias criterias = new Criterias();
-        criterias.addCriteria(new Criteria("id", "=", id));
-        Preference current_preferences = PreferenceCRUD.read(criterias).get(0);
-        preference.setDateCreation(current_preferences.getDateCreation());
         preference.setDateMiseAJour(System.currentTimeMillis());
         PreferenceCRUD.update(preference);
         return preference;
