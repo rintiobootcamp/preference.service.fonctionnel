@@ -13,8 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <config.home>/home/config/dev</config.home>
-        <config.home2>C:\Users\Archange\Documents\Script\bootcamp.scripts\bootcamp.scripts-release_1.3.0\config\local</config.home2>
-    </properties>
+		</properties>
 
     <dependencies>
 
@@ -237,7 +236,7 @@
                         <filtering>true</filtering>
                     </resource>
                     <resource>
-                        <directory>${config.home2}</directory>
+                        <directory>${config.home}</directory>
                     </resource>
 
                 </resources>
