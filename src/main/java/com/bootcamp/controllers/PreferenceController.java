@@ -68,7 +68,7 @@ public class PreferenceController {
     @RequestMapping(method = RequestMethod.GET, value = "/{userId}")
     @ApiVersions({"1.0"})
     @ApiOperation(value = "Read all the preferences of a user", notes = "Read all the preferences of a user")
-    public ResponseEntity<List<Preference>> readUserPreferences(@PathVariable(name = "userId") int id) {
+    public ResponseEntity<List<Preference>> readUserPreferences(@PathVariable(name = "userId") int id) throws Exception {
         List<PreferenceWS> preferencesWS = new ArrayList<>();
          List<Preference> preferences = null ;
         PreferenceWS preferenceWS = new PreferenceWS();
