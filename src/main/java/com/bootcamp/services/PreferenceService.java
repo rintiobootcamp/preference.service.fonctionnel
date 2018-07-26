@@ -10,6 +10,7 @@ import com.rintio.elastic.client.ElasticClient;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,13 @@ import java.util.stream.Collectors;
  */
 @Component
 public class PreferenceService implements DatabaseConstants {
+    ElasticClient elasticClient;
+
+    @PostConstruct
+    public void init() {
+
+        elasticClient = new ElasticClient();
+    }
 
     /**
      * Insert the given preference in the database
@@ -28,9 +36,10 @@ public class PreferenceService implements DatabaseConstants {
      * @return preference
      * @throws SQLException
      */
-    public Preference create(Preference preference) throws SQLException {
+    public Preference create(Preference preference) throws Exception {
         preference.setDateCreation(System.currentTimeMillis());
         PreferenceCRUD.create(preference);
+        createAllIndexPreference();
         return preference;
     }
 
@@ -41,9 +50,10 @@ public class PreferenceService implements DatabaseConstants {
      * @return preference id
      * @throws SQLException
      */
-    public Preference update(Preference preference) throws SQLException {
+    public Preference update(Preference preference) throws Exception {
         preference.setDateMiseAJour(System.currentTimeMillis());
         PreferenceCRUD.update(preference);
+        createAllIndexPreference();
         return preference;
     }
 
@@ -56,7 +66,9 @@ public class PreferenceService implements DatabaseConstants {
      */
     public boolean delete(int id) throws Exception {
         Preference preference = read(id);
-        return PreferenceCRUD.delete(preference);
+       if(PreferenceCRUD.delete(preference))
+           createAllIndexPreference();
+       return true;
     }
 
     /**
@@ -70,7 +82,7 @@ public class PreferenceService implements DatabaseConstants {
 //        Criterias criterias = new Criterias();
 //        criterias.addCriteria(new Criteria("id", "=", id));
 //        List<Preference> preferences = PreferenceCRUD.read(criterias);
-        return getAllPreferenceIndex().stream().filter(t->t.getId()==id).findFirst().get();
+        return getAllPreferenceIndex().stream().filter(t -> t.getId() == id).findFirst().get();
     }
 
     /**
@@ -84,16 +96,17 @@ public class PreferenceService implements DatabaseConstants {
 //        Criterias criterias = new Criterias();
 //        criterias.addCriteria(new Criteria("userId", "=", userId));
 //        List<Preference> preferences = PreferenceCRUD.read(criterias);
-        List<Preference> preferences = getAllPreferenceIndex().stream().filter(t->t.getUserId()==userId).collect(Collectors.toList());
+        List<Preference> preferences = getAllPreferenceIndex().stream().filter(t -> t.getUserId() == userId).collect(Collectors.toList());
         return preferences;
     }
-    public List<Preference> getAllPreferenceIndex() throws Exception{
+
+    public List<Preference> getAllPreferenceIndex() throws Exception {
         ElasticClient elasticClient = new ElasticClient();
         List<Object> objects = elasticClient.getAllObject("preferences");
         ModelMapper modelMapper = new ModelMapper();
         List<Preference> rest = new ArrayList<>();
-        for(Object obj:objects){
-            rest.add(modelMapper.map(obj,Preference.class));
+        for (Object obj : objects) {
+            rest.add(modelMapper.map(obj, Preference.class));
         }
         return rest;
     }
@@ -110,6 +123,14 @@ public class PreferenceService implements DatabaseConstants {
 
     public boolean exist(int id) throws Exception {
         return read(id) != null;
+    }
+
+    public boolean createAllIndexPreference() throws Exception {
+        List<Preference> preferences = PreferenceCRUD.read();
+        for (Preference preference : preferences) {
+            elasticClient.creerIndexObjectNative("preferences", "preference", preference, preference.getId());
+        }
+        return true;
 
     }
 }
