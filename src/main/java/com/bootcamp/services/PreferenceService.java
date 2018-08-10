@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 @Component
 public class PreferenceService implements DatabaseConstants {
     ElasticClient elasticClient;
-
+private List<Preference> preferences;
     @PostConstruct
     public void init() {
-
+        preferences = new ArrayList<>();
         elasticClient = new ElasticClient();
     }
 
@@ -74,15 +74,21 @@ public class PreferenceService implements DatabaseConstants {
     /**
      * Get a preference by its id
      *
-     * @param id
+     * @param
      * @return preference
      * @throws SQLException
      */
+    public List<Preference> lirePreference() throws Exception{
+        if(this.preferences.isEmpty())
+            getAllPreferenceIndex();
+        return this.preferences;
+    }
     public Preference read(int id) throws Exception {
 //        Criterias criterias = new Criterias();
 //        criterias.addCriteria(new Criteria("id", "=", id));
 //        List<Preference> preferences = PreferenceCRUD.read(criterias);
-        return getAllPreferenceIndex().stream().filter(t -> t.getId() == id).findFirst().get();
+
+        return lirePreference().stream().filter(t -> t.getId() == id).findFirst().get();
     }
 
     /**
@@ -96,7 +102,7 @@ public class PreferenceService implements DatabaseConstants {
 //        Criterias criterias = new Criterias();
 //        criterias.addCriteria(new Criteria("userId", "=", userId));
 //        List<Preference> preferences = PreferenceCRUD.read(criterias);
-        List<Preference> preferences = getAllPreferenceIndex().stream().filter(t -> t.getUserId() == userId).collect(Collectors.toList());
+        List<Preference> preferences = lirePreference().stream().filter(t -> t.getUserId() == userId).collect(Collectors.toList());
         return preferences;
     }
 
@@ -108,6 +114,7 @@ public class PreferenceService implements DatabaseConstants {
         for (Object obj : objects) {
             rest.add(modelMapper.map(obj, Preference.class));
         }
+        this.preferences=rest;
         return rest;
     }
 //    public Preference read(int id) throws SQLException {
